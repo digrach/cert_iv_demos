@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class BubbleSortDemo {
 
 	public static void main(String[] args) {
+		
+		
 
 		// Arrays are in parallel with each other - this means that
 		// the first top score in topScores belongs to the first username in userNames.
