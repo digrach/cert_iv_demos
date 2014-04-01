@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class BubbleSortDemo {
 
 	public static void main(String[] args) {
-		
-		
+
+
 
 		// Arrays are in parallel with each other - this means that
 		// the first top score in topScores belongs to the first username in userNames.
@@ -16,134 +16,125 @@ public class BubbleSortDemo {
 		// Array of usernames.
 		String userNames[] = {"straven", "kiddthunda", "boingboing", "tunzapun", "soonami", "straven", "kiddthunda", "slasher", "kiddthunda", "shanus"};
 
-		// Print the unsorted arrays.
-		System.out.println("Unsorted arrays...");
-		for (int x = 0; x < topScores.length; x ++) {
-			System.out.println(userNames[x] + ": " + topScores[x]);
-		}
-		System.out.println();
+		int nums[] = {100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600};
+		int nums2[] = {1040,2010,1300,6400,15100,11600,2700,4800,5900,310300,111100,21200,41300,981400,221500,21600};
 
+
+		print(topScores, "Print *UNSORTED* topScores array");
+		bubbleSort(topScores, userNames);
+		print(topScores, "Print *SORTED* topScores array");
+		binarySearch(topScores, 100000);
+		sequentialSearch(topScores, 100000);
+		
+//		print(nums, "Print unsorted nums array");
+//		print(nums2, "Print unsorted nums2 array");
+
+
+	}
+
+	public static void bubbleSort(int a[], String s[]) {
 		// Bubble sort the top scores from greatest to lowest.
 		// The usernames are also sorted but only after a topscore sort happens.
 		// The outer loop compares gets the current score
 		// In the loop primer, we subtract 1 from the length of the array.
 		// This is because we need not check the last number against the next number
 		// because there is no next number!
-//		for (int outerLoop = 0; outerLoop < topScores.length - 1 ; outerLoop ++) {
-//			// The inner loops compares the score in the outer loop
-//			// to each score in the inner loop.
-//			for (int innerLoop = 0; innerLoop < topScores.length - 1; innerLoop ++) {
-//				// If the current topscore is less than the next topscore, do the swap.
-//				if (topScores[innerLoop] < topScores[innerLoop + 1]) {
-//					int tempTopScore = topScores[innerLoop];
-//					topScores[innerLoop] = topScores[innerLoop + 1];
-//					topScores[innerLoop + 1] = tempTopScore;
-//					String tempUserName = userNames[innerLoop];
-//					userNames[innerLoop] = userNames[innerLoop + 1];
-//					userNames[innerLoop + 1] = tempUserName;
-//				}
-//			}
-//		}
-		
-		Arrays.sort(topScores);
-
-		// Print the sorted arrays.
-		System.out.println("Sorted arrays...");
-		for (int x = 0; x < topScores.length; x ++) {
-			System.out.println(userNames[x] + ": " + topScores[x]);
+		for (int outerLoop = 0; outerLoop < a.length - 1 ; outerLoop ++) {
+			// The inner loops compares the score in the outer loop
+			// to each score in the inner loop.
+			for (int innerLoop = 0; innerLoop < a.length - 1; innerLoop ++) {
+				// If the current topscore is less than the next topscore, do the swap.
+				if (a[innerLoop] > a[innerLoop + 1]) {
+					int tempTopScore = a[innerLoop];
+					a[innerLoop] = a[innerLoop + 1];
+					a[innerLoop + 1] = tempTopScore;
+					if (s != null) {
+						String tempUserName = s[innerLoop];
+						s[innerLoop] = s[innerLoop + 1];
+						s[innerLoop + 1] = tempUserName;
+					}
+				}
+			}
 		}
-		System.out.println();
+	}
 
-//		int first = 0;
-//		int last = topScores.length - 1;
-		//int middle = 0;// = (first + last) / 2;
-//		int search = 45264;
-		
-		int nums[] = {100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600};
-		int search = 87667;
-		
-		int a[] = topScores;
-		
+	public static void binarySearch(int[] a, int target) {
+
 		int first = 0;
 		int last = a.length - 1;
-		
-		boolean found = false;
-		
-		
-		
-		System.out.println("********************************");
-		System.out.println("Search target is " + search);
-		System.out.println("********************************");
+
+		System.out.println();
+		System.out.println("*************************************");
+		System.out.println("***** Binary search for " + target);
 		System.out.println();
 		
+		int countSearchLoops = 1;
+
 		while (first <= last) {
-			
+
 			int middle = (first + last) / 2;
-			
-			System.out.println("first index: " + first);
-			System.out.println("last index: " + last);
-			System.out.println("middle index: " + middle);
-			System.out.println("middle value: " + a[middle]);
-			
-			System.out.println("   Comparing " + search + " to " + a[middle]);
-			if (search == a[middle]) {
-				System.out.println("   FOUND " + search + " at index " + middle);
-				found = true;
-				break;
-			} else if (search < a[middle]) {
-				System.out.println("   " + search + " is less than " + a[middle]);
+
+			System.out.println("   first index: " + first);
+			System.out.println("   last index: " + last);
+			System.out.println("   middle index: " + middle);
+			System.out.println("   middle value: " + a[middle]);
+			System.out.println("   Comparing " + target + " to " + a[middle]);
+
+			if (target == a[middle]) {
+				System.out.println();
+				System.out.println("   FOUND " + target + " at index " + middle);
+				System.out.println("   ***** Total search loop count: " + countSearchLoops);
+				return;
+			} else if (target < a[middle]) {
+				System.out.println("   " + target + " is less than " + a[middle]);
 				last = middle - 1;
 				System.out.println("   < changing last index to " + last);
-			} else if (search > a[middle]) {
-				System.out.println("   " + search + " is greater than " + a[middle]);
+			} else if (target > a[middle]) {
+				System.out.println("   " + target + " is greater than " + a[middle]);
 				first = middle + 1;
 				System.out.println("   > changing first index to " + first);
 			}
+
+			countSearchLoops ++;
 			
 			System.out.println();
-			
-		}
-		
-		if (found == false) {
-			System.out.println(search + " Not found");
+
 		}
 
-//		while (first <= last) {
-//			
-//			if (search == topScores[middle]) {
-//				System.out.println("FOUND in the MIDDLE");
-//				break;
-//			} else if (search < topScores[middle]) {
-//				middle /= 2;
-//				first ++;
-//				last = topScores[middle - first];
-//				if (search == first) {
-//					System.out.println("FOUND at " + first);
-//				}
-//			} else if (search > topScores[middle]) {
-//				first = topScores[middle + 1] {
-//					
-//				}
-//			}
-//			while (first <= last) {
-//			
-//			if (search == topScores[middle]) {
-//				System.out.println("FOUND in the MIDDLE");
-//				break;
-//			} else if (search < topScores[middle]) {
-//				middle /= 2;
-//				first ++;
-//				last = topScores[middle - first];
-//				if (search == first) {
-//					System.out.println("FOUND at " + first);
-//				}
-//			} else if (search > topScores[middle]) {
-//				first = topScores[middle + 1] {
-//					
-//				}
-//		}
+			System.out.println("   " + target + " Not found");
 
 	}
+	
+	public static void sequentialSearch(int a[], int target) {
+		
+		System.out.println();
+		System.out.println("*************************************");
+		System.out.println("***** Sequential search for " + target);
+		System.out.println();
 
+		for (int x = 0; x < a.length; x++) {
+			if (a[x] == target) {
+				System.out.println("   " + target + " found at index " + x);
+				System.out.println("   ***** Total search loop count: " + (x + 1));
+				return;
+			}
+		}
+		
+		System.out.println(target + " not found");
+		
+	}
+
+	public static void print(int[] a, String header) {
+
+		System.out.println();
+		System.out.println("********** " + header + " **********");
+
+		for (int x = 0; x < a.length; x ++ ) {
+			System.out.print(a[x] + ", ");
+		}
+
+		System.out.println();
+
+	}
 
 }
