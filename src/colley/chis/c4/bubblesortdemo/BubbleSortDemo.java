@@ -1,12 +1,21 @@
-package colley.chis.c4.bubblesortdemo;
+// Rachael Colley
+// Implementation of bubble sort, sequential search and binary search algorithms
+// and tasks @ https://docs.google.com/document/d/1jxTQIBM_KHLEp4fSrJ-PjHgzGLkRGhSJrjRqiMwQC3M/
 
-import java.util.Arrays;
+package colley.chis.c4.bubblesortdemo;
 
 public class BubbleSortDemo {
 
 	public static void main(String[] args) {
 
-
+		System.out.println();
+		System.out.println("* * * * * * * * * * * * * * * * * * * * * ");
+		System.out.println("******************************************");
+		System.out.println("********* Sorting and searching **********");
+		System.out.println("*********** THE FUN NEVER ENDS ***********");
+		System.out.println("******************************************");
+		System.out.println("* * * * * * * * * * * * * * * * * * * * * ");
+		System.out.println();
 
 		// Arrays are in parallel with each other - this means that
 		// the first top score in topScores belongs to the first username in userNames.
@@ -16,23 +25,50 @@ public class BubbleSortDemo {
 		// Array of usernames.
 		String userNames[] = {"straven", "kiddthunda", "boingboing", "tunzapun", "soonami", "straven", "kiddthunda", "slasher", "kiddthunda", "shanus"};
 
-		int nums[] = {100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600};
-		int nums2[] = {1040,2010,1300,6400,15100,11600,2700,4800,5900,310300,111100,21200,41300,981400,221500,21600};
-
 
 		print(topScores, "Print *UNSORTED* topScores array");
-		bubbleSort(topScores, userNames);
-		print(topScores, "Print *SORTED* topScores array");
-		binarySearch(topScores, 100000);
-		sequentialSearch(topScores, 100000);
 		
-//		print(nums, "Print unsorted nums array");
-//		print(nums2, "Print unsorted nums2 array");
+		bubbleSort(topScores, userNames);
+		
+		print(topScores, "Print *SORTED* topScores array");
+		
+		boolean ss1 = sequentialSearch(topScores, 87667);
+		System.out.println("87667 found = " + ss1);
+		boolean ss2 = sequentialSearch(topScores, 41345);
+		System.out.println("41345 found = " + ss1);
+		boolean ss3 = sequentialSearch(topScores, 50000);
+		System.out.println("50000 found = " + ss1);
+		
+		boolean bs1 = binarySearch(topScores, 87667);
+		System.out.println("87667 found = " + bs1);
+		boolean bs2 = binarySearch(topScores, 41345);
+		System.out.println("41345 found = " + bs1);
+		boolean bs3 = binarySearch(topScores, 50000);
+		System.out.println("50000 found = " + bs1);
+		
+		print(topScores, userNames, "Final *SORTED* data");
+		
+		
+		System.out.println();
+		System.out.println("* * * * * * * * * * * * * * * * * * * * * ");
+		System.out.println("******************************************");
+		System.out.println("**************** KTHXBAI *****************");
+		System.out.println("******************************************");
+		System.out.println("* * * * * * * * * * * * * * * * * * * * * ");
+		System.out.println();
+
 
 
 	}
 
 	public static void bubbleSort(int a[], String s[]) {
+		
+		System.out.println();
+		System.out.println("*************************************");
+		System.out.println("**** Bubble sorting right now!! *****");
+		System.out.println("*************************************");
+		System.out.println();
+		
 		// Bubble sort the top scores from greatest to lowest.
 		// The usernames are also sorted but only after a topscore sort happens.
 		// The outer loop compares gets the current score
@@ -45,9 +81,10 @@ public class BubbleSortDemo {
 			for (int innerLoop = 0; innerLoop < a.length - 1; innerLoop ++) {
 				// If the current topscore is less than the next topscore, do the swap.
 				if (a[innerLoop] > a[innerLoop + 1]) {
-					int tempTopScore = a[innerLoop];
-					a[innerLoop] = a[innerLoop + 1];
-					a[innerLoop + 1] = tempTopScore;
+					int tempTopScore = a[innerLoop]; // Store current index value in a temp variable.
+					a[innerLoop] = a[innerLoop + 1]; // Assign the next index value to the current index.
+					a[innerLoop + 1] = tempTopScore; // Assign temp to the next index.
+					// Keep the String array in parallel with the int array.
 					if (s != null) {
 						String tempUserName = s[innerLoop];
 						s[innerLoop] = s[innerLoop + 1];
@@ -58,7 +95,7 @@ public class BubbleSortDemo {
 		}
 	}
 
-	public static void binarySearch(int[] a, int target) {
+	public static boolean binarySearch(int[] a, int target) {
 
 		int first = 0;
 		int last = a.length - 1;
@@ -84,7 +121,7 @@ public class BubbleSortDemo {
 				System.out.println();
 				System.out.println("   FOUND " + target + " at index " + middle);
 				System.out.println("   ***** Total search loop count: " + countSearchLoops);
-				return;
+				return true;
 			} else if (target < a[middle]) {
 				System.out.println("   " + target + " is less than " + a[middle]);
 				last = middle - 1;
@@ -100,12 +137,12 @@ public class BubbleSortDemo {
 			System.out.println();
 
 		}
-
-			System.out.println("   " + target + " Not found");
+			
+			return false;
 
 	}
 	
-	public static void sequentialSearch(int a[], int target) {
+	public static boolean sequentialSearch(int a[], int target) {
 		
 		System.out.println();
 		System.out.println("*************************************");
@@ -116,12 +153,11 @@ public class BubbleSortDemo {
 			if (a[x] == target) {
 				System.out.println("   " + target + " found at index " + x);
 				System.out.println("   ***** Total search loop count: " + (x + 1));
-				return;
+				return true;
 			}
 		}
-		
-		System.out.println(target + " not found");
-		
+				
+		return false;
 	}
 
 	public static void print(int[] a, String header) {
@@ -131,6 +167,19 @@ public class BubbleSortDemo {
 
 		for (int x = 0; x < a.length; x ++ ) {
 			System.out.print(a[x] + ", ");
+		}
+
+		System.out.println();
+
+	}
+	
+	public static void print(int[] a, String[] s, String header) {
+
+		System.out.println();
+		System.out.println("********** " + header + " **********");
+
+		for (int x = 0; x < a.length; x ++ ) {
+			System.out.println(s[x] + "'s score " + a[x]);
 		}
 
 		System.out.println();
